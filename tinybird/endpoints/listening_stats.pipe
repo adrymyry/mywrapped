@@ -1,0 +1,32 @@
+
+DESCRIPTION >
+    Get user's overall Web Scrobbler listening statistics
+
+NODE listening_stats_node
+SQL >
+    %
+    WITH 
+        total_time AS (
+            SELECT round(sum(duration) / 60) as total_minutes_listened
+            FROM web_scrobbler_events
+            WHERE timestamp BETWEEN {{DateTime(start_date, '2023-01-01 00:00:00')}} AND {{DateTime(end_date, '2025-12-31 23:59:59')}}
+                AND event_name = 'nowplaying'
+        ),
+        unique_counts AS (
+            SELECT 
+                count(DISTINCT track) as unique_songs,
+                count(DISTINCT artist) as unique_artists,
+                count(DISTINCT album) as unique_albums
+            FROM web_scrobbler_events
+            WHERE timestamp BETWEEN {{DateTime(start_date, '2023-01-01 00:00:00')}} AND {{DateTime(end_date, '2025-12-31 23:59:59')}}
+                AND event_name = 'nowplaying'
+        )
+    SELECT 
+        total_minutes_listened,
+        unique_songs,
+        unique_artists,
+        unique_albums
+    FROM total_time
+    CROSS JOIN unique_counts
+
+TYPE endpoint

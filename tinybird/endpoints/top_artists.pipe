@@ -1,0 +1,21 @@
+
+DESCRIPTION >
+    Get user's top artists from Web Scrobbler for a given time period
+
+NODE top_artists_node
+SQL >
+    %
+    SELECT 
+        artist,
+        any(track_art) track_art,
+        count() as play_count,
+        count(DISTINCT track) as unique_songs_played,
+        round(sum(duration) / 60) as total_minutes_listened
+    FROM web_scrobbler_events
+    WHERE timestamp BETWEEN {{DateTime(start_date, '2023-01-01 00:00:00')}} AND {{DateTime(end_date, '2025-12-31 23:59:59')}}
+        AND event_name = 'nowplaying'
+    GROUP BY artist
+    ORDER BY play_count DESC
+    LIMIT {{Int32(limit, 5)}}
+
+TYPE endpoint
