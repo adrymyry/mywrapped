@@ -65,7 +65,7 @@ export default function ListeningStats({ onShare }: ListeningStatsProps) {
           </Button>
         </div>
         <CardDescription className="text-[#A0AEC0] italic">
-          ·.¸¸.·♩♪♫ Here's how my {new Date().getFullYear()} sounded ♫♪♩·.¸¸.·
+          ·.¸¸.·♩♪♫ Here is how my {new Date().getFullYear()} sounded ♫♪♩·.¸¸.·
         </CardDescription>
       </CardHeader>
       <CardContent className="p-4 bg-[#111827]">

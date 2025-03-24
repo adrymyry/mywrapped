@@ -10,7 +10,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Download, Twitter, Facebook, Instagram, Copy, Check } from "lucide-react"
+import { Download } from "lucide-react"
 import html2canvas from "html2canvas"
 import { fetchListeningStats, fetchTopArtists, fetchTopSongs } from "@/lib/api"
 import { Skeleton } from "./ui/skeleton"
@@ -45,7 +45,6 @@ interface Song {
 
 export default function ShareCard({ cardType, onClose }: ShareCardProps) {
   const cardRef = useRef<HTMLDivElement>(null)
-  const [copied, setCopied] = useState(false)
   const [downloading, setDownloading] = useState(false)
 
   const [stats, setStats] = useState<StatsData | null>(null)
@@ -111,13 +110,6 @@ export default function ShareCard({ cardType, onClose }: ShareCardProps) {
     } finally {
       setDownloading(false)
     }
-  }
-
-  const handleCopyLink = () => {
-    // In a real app, this would generate a shareable link
-    navigator.clipboard.writeText("https://music-wrapped.example.com/share/abc123")
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
   }
 
   if (loading) {
