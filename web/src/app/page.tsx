@@ -11,6 +11,14 @@ export default function Home() {
           <p className="text-[#A0AEC0] italic">
             ·♩♪♫ Discover your listening habits ♫♪♩·
           </p>
+          <a 
+            href="https://github.com/adrymyry/mywrapped#setup-instructions"
+            target="_blank"
+            rel="noopener noreferrer" 
+            className="text-sm text-[#93C5FD] hover:text-[#60A5FA] underline block mt-2"
+          >
+            Set up your Tinybird backend
+          </a>
         </div>
         <LoginForm />
       </div>

@@ -1,10 +1,52 @@
 ## App
 
-This is a Spotify Wrapped clone. It's based on this version: https://images.ctfassets.net/c1zhnszcah7h/2szccTy52nQoUtiApSJIi2/2e8cc4fafaffd7edd9abf002506827ff/Header_01__1_.png?w=1000&h=597&q=96&fm=webp.
+This is a Spotify Wrapped clone. It's based on this version
+![Spotify Wrapped 2022](https://images.ctfassets.net/c1zhnszcah7h/2szccTy52nQoUtiApSJIi2/2e8cc4fafaffd7edd9abf002506827ff/Header_01__1_.png?w=1000&h=597&q=96&fm=webp)
 
 The app should provide a way to display the different analytics provided by the Tinybird backend. These analytics must be easily shareable using cards in social media.
 
 Use a basic login based on the TB_TOKEN. It must be provided by the user and stored into the browser storage.
+
+## Setup Instructions
+
+### 1. Install Web Scrobbler
+- Install the Web Scrobbler extension from https://web-scrobbler.com/
+- This extension will track your music listening across various streaming platforms
+
+### 2. Set up Tinybird Backend
+- Install Tinybird CLI:
+  ```bash
+  curl https://tinybird.co | sh
+  ```
+- Clone this repository:
+  ```bash
+  git clone https://github.com/adrymyry/mywrapped
+  ```
+- Log in to Tinybird and create a workspace:
+  ```bash
+  tb login
+  ```
+  Select GCP - europe-west2 region when prompted
+- Deploy the backend:
+  ```bash
+  tb --cloud deploy
+  ```
+- Create and get your TB_TOKEN:
+  ```bash
+  tb token create static mywrapped_token --scope ADMIN && tb token ls --match mywrapped_token
+  ```
+
+### 3. Configure the UI
+- Use the TB_TOKEN generated in the previous step to log in to the application
+
+### 4. Configure Web Scrobbler
+- Open Web Scrobbler extension settings
+- Go to Accounts section
+- Add a new Webhook with the following API URL:
+  ```
+  https://api.europe-west2.gcp.tinybird.co/v0/events?name=web_scrobbler_events&token=<TB_TOKEN>
+  ```
+  Replace `<TB_TOKEN>` with your actual token from step 2
 
 ## Tinybird
 
