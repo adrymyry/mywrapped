@@ -1,0 +1,23 @@
+
+DESCRIPTION >
+    Materialized view to pipe data from CSV datasource to the main web_scrobbler_events datasource
+
+NODE csv_to_main_node
+SQL >
+    SELECT
+        timestamp,
+        event_name,
+        track,
+        artist,
+        album,
+        duration,
+        track_art,
+        artist_url,
+        track_url,
+        album_url,
+        connector
+    FROM web_scrobbler_events_csv
+
+TYPE materialized
+DATASOURCE web_scrobbler_events
+        

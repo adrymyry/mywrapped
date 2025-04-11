@@ -1,0 +1,21 @@
+
+DESCRIPTION >
+    CSV ingestion path for Web Scrobbler events that will be forwarded to the main datasource
+
+SCHEMA >
+    `timestamp` DateTime64(3),
+    `event_name` String,
+    `track` String,
+    `artist` String,
+    `album` String,
+    `duration` Int32,
+    `track_art` Nullable(String),
+    `artist_url` Nullable(String),
+    `track_url` Nullable(String),
+    `album_url` Nullable(String),
+    `connector` String
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
+ENGINE_SORTING_KEY "timestamp, track, artist"
+        
