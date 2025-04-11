@@ -9,7 +9,6 @@ SCHEMA >
     `artist` String `json:$.data.song.parsed.artist`,
     `album` String `json:$.data.song.parsed.album`,
     `duration` Int32 `json:$.data.song.parsed.duration`,
-    `unique_id` String `json:$.data.song.parsed.uniqueID`,
     `track_art` Nullable(String) `json:$.data.song.metadata.trackArtUrl`,
     `artist_url` Nullable(String) `json:$.data.song.metadata.artistUrl`,
     `track_url` Nullable(String) `json:$.data.song.metadata.trackUrl`,
@@ -19,7 +18,7 @@ SCHEMA >
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
-ENGINE_SORTING_KEY "timestamp, track, artist, unique_id"
+ENGINE_SORTING_KEY "timestamp, track, artist"
 
 FORWARD_QUERY >
-    SELECT timestamp, event_name, track, artist, album, duration, unique_id, CAST(track_art, 'Nullable(String)') AS track_art, CAST(artist_url, 'Nullable(String)') AS artist_url, CAST(track_url, 'Nullable(String)') AS track_url, CAST(album_url, 'Nullable(String)') AS album_url, connector
+    SELECT timestamp, event_name, track, artist, album, duration, CAST(track_art, 'Nullable(String)') AS track_art, CAST(artist_url, 'Nullable(String)') AS artist_url, CAST(track_url, 'Nullable(String)') AS track_url, CAST(album_url, 'Nullable(String)') AS album_url, connector
